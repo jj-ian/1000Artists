@@ -73,7 +73,7 @@ Let B = the number of pairs of artists that occur together in the dataset. B is 
 
 **The naive solution** has a runtime complexity of **O(L****B****)**. This comes from enumerating each pair of artists per listener to insert into the map of pair counts. This part of the algorithm is the bottleneck and dominates the big-O.
 
-LB is bounded from above by <sup>LA2</sup>. In this dataset, A = 11,289, A<sup>2</sup> = 127,441,521, and B = 751,192. Then, LB is much smaller than LA<sup>2</sup> for this dataset.
+LB is bounded from above by LA<sup>2</sup>. In this dataset, A = 11,289, A<sup>2</sup> = 127,441,521, and B = 751,192. Then, LB is much smaller than LA<sup>2</sup> for this dataset.
 
 We can get an even tighter bound: If we assume that there’s not too much variance in the length of the playlists, we can estimate the average-case running time to be O(LA’<sup>2</sup>). Since A’ = 45 in this dataset, this ends up being much smaller than LB and LA<sup>2</sup>, which makes the algorithm run quite quickly for this dataset.
 
