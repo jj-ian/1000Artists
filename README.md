@@ -1,14 +1,14 @@
-# 1000 ARTISTS
+# 1000 Artists
 
 Julie Chien
 
-# PROBLEM
+# Problem
 
 The attached utf-8 encoded text file contains the favorite musical artists of 1000 users from LastFM. Each line is a list of artists.
 
 Write a program that takes a file or standard input, and produces a list of pairs of artists which appear TOGETHER in at least fifty different lists. For example, in the above sample, Radiohead and Morrissey appear together twice, but every other pair appears only once. Your program should output the pair list to stdout in the same form as the input (eg Artist Name 1, Artist Name 2\n).
 
-# SOLUTION
+# Solution
 
 I implemented 3 different solutions, all in Python. 
 
@@ -34,7 +34,7 @@ This solution is the same as the dense matrix solution, except that I used spars
 
 Additionally, I made a first pass through the input and threw out any artists that occur fewer than 50 times, because they cannot possibly belong to any pairs in the solution.
 
-# TO COMPILE AND RUN
+# To Compile and Run
 
 Note: You must have Python and the csv, numpy, and scipy.sparse libraries. You may have to change the first line of the scripts to wherever your Python is located. Mine was in #!/usr/bin/python.
 
@@ -51,7 +51,7 @@ To run the sparse matrix solution:
 
 Note I did not include the dense matrix solution since it’s the same as the sparse matrix solution, save the libraries used.
 
-# RESULTS
+# Results
 
 The naive solution took on average 2.959 seconds to complete.
 
@@ -61,7 +61,7 @@ The sparse matrix solution was quite fast and completed in **0.549 seconds**.
 
 Without the additional optimization of throwing out artists that occur less than 50 times, the sparse matrix solution took 1.152 seconds.
 
-# TIME COMPLEXITY
+# Time Complexity
 
 Let A = the number of unique artists and L = the number of listeners.
 
@@ -83,7 +83,7 @@ We can get an even tighter bound: If we assume that there’s not too much varia
 
 In the sparse matrix solution, I added the additional optimization of removing all artists that appear fewer than 50 times. Then, a tighter bound on the sparse matrix’s runtime is **O(LA’’<sup>2</sup>)**. This combined with SciPy’s optimizations make the sparse matrix solution super fast -- half a second for this dataset.
 
-# SPACE COMPLEXITY
+# Space Complexity
 
 **The naive solution**’s space bottleneck is the map of artist pairs, which is O(B). Since the data is sparse,  O(B) is much smaller than O(A<sup>2</sup>) for this dataset.
 
@@ -91,7 +91,7 @@ In the sparse matrix solution, I added the additional optimization of removing a
 
 **The sparse matrix solution** has a space complexity of O(B). The bottleneck is the product matrix which is of size A’’ x A’’; however, SciPy’s representation of it condenses it to O(B).
 
-# NOTES
+# Notes
 
 1. Bloom filters could be used to improve space complexity.
 
