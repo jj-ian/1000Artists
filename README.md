@@ -38,16 +38,16 @@ Additionally, I made a first pass through the input and threw out any artists th
 
 Note: You must have Python and the csv, numpy, and scipy.sparse libraries. You may have to change the first line of the scripts to wherever your Python is located. Mine was in #!/usr/bin/python.
 
-> cd Source/
-> chmod 755 artistpairs_naive_final.py artistpairs_sparse_matrix_final.py
+	> cd Source/
+	> chmod 755 artistpairs_naive_final.py artistpairs_sparse_matrix_final.py
 
 To run the naive solution:
 
-> ./artistpairs_naive_final.py
+	> ./artistpairs_naive_final.py
 
 To run the sparse matrix solution:
 
-> ./artistpairs_sparse_matrix_final.py
+	> ./artistpairs_sparse_matrix_final.py
 
 Note I did not include the dense matrix solution since it’s the same as the sparse matrix solution, save the libraries used.
 
@@ -69,25 +69,25 @@ Let A’ = the average number of artists liked by each listener. A’ is bounded
 
 Let A’’ = the number of artists that appear at least 50 times.
 
-Let B = the number of pairs of artists that occur together in the dataset. B is bounded above by A2 -- the number of all possible pairs over A artists.
+Let B = the number of pairs of artists that occur together in the dataset. B is bounded above by A<sup>2</sup> -- the number of all possible pairs over A artists.
 
 **The naive solution** has a runtime complexity of **O(L****B****)**. This comes from enumerating each pair of artists per listener to insert into the map of pair counts. This part of the algorithm is the bottleneck and dominates the big-O.
 
-LB is bounded from above by LA**2****. **In this dataset, A = 11,289, A2 = 127,441,521, and B = 751,192. Then, LB is much smaller than LA**2** for this dataset.
+LB is bounded from above by <sup>LA2</sup>. In this dataset, A = 11,289, A<sup>2</sup> = 127,441,521, and B = 751,192. Then, LB is much smaller than LA<sup>2</sup> for this dataset.
 
-We can get an even tighter bound: If we assume that there’s not too much variance in the length of the playlists, we can estimate the average-case running time to be O(LA’**2**). Since A’ = 45 in this dataset, this ends up being much smaller than LB and LA**2**, which makes the algorithm run quite quickly for this dataset.
+We can get an even tighter bound: If we assume that there’s not too much variance in the length of the playlists, we can estimate the average-case running time to be O(LA’<sup>2</sup>). Since A’ = 45 in this dataset, this ends up being much smaller than LB and LA<sup>2</sup>, which makes the algorithm run quite quickly for this dataset.
 
-**The dense matrix solution**’s bottleneck is the matrix multiplication, which is **O(LA****2****)** regardless of what the data looks like. This makes the dense matrix solution very slow.
+**The dense matrix solution**’s bottleneck is the matrix multiplication, which is **O(LA<sup>2</sup>)** regardless of what the data looks like. This makes the dense matrix solution very slow.
 
-**The sparse matrix solution**’s bottleneck is also the matrix multiplication, which is still **O(LA****2****)**. However, using the sparse matrices in the SciPy library gives us a huge performance boost, due to optimizations like parallelization, caching, and vectorization  that are built into the library’s sparse matrix operations. 
+**The sparse matrix solution**’s bottleneck is also the matrix multiplication, which is still **O(LA<sup>2</sup>)**. However, using the sparse matrices in the SciPy library gives us a huge performance boost, due to optimizations like parallelization, caching, and vectorization  that are built into the library’s sparse matrix operations. 
 
-In the sparse matrix solution, I added the additional optimization of removing all artists that appear fewer than 50 times. Then, a tighter bound on the sparse matrix’s runtime is **O(LA’’****2****)**. This combined with SciPy’s optimizations make the sparse matrix solution super fast -- half a second for this dataset.
+In the sparse matrix solution, I added the additional optimization of removing all artists that appear fewer than 50 times. Then, a tighter bound on the sparse matrix’s runtime is **O(LA’’<sup>2</sup>)**. This combined with SciPy’s optimizations make the sparse matrix solution super fast -- half a second for this dataset.
 
 # SPACE COMPLEXITY
 
-**The naive solution**’s space bottleneck is the map of artist pairs, which is O(B). Since the data is sparse,  O(B) is much smaller than O(A2) for this dataset.
+**The naive solution**’s space bottleneck is the map of artist pairs, which is O(B). Since the data is sparse,  O(B) is much smaller than O(A<sup>2</sup>) for this dataset.
 
-**The dense matrix solution** has a space complexity of O(A2) regardless of the sparsity of the data. The bottleneck is the product matrix which is of size A x A.
+**The dense matrix solution** has a space complexity of O(A<sup>2</sup>) regardless of the sparsity of the data. The bottleneck is the product matrix which is of size A x A.
 
 **The sparse matrix solution** has a space complexity of O(B). The bottleneck is the product matrix which is of size A’’ x A’’; however, SciPy’s representation of it condenses it to O(B).
 
